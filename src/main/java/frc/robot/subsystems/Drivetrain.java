@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -23,6 +24,10 @@ public class Drivetrain extends SubsystemBase {
   private final CANSparkMax backRight = new CANSparkMax(Constants.BACK_RIGHT_SPARKMAX_ID, MotorType.kBrushless);
   private final CANSparkMax frontRight = new CANSparkMax(Constants.FRONT_RIGHT_SPARKMAX_ID, MotorType.kBrushless);
 
+  private final CANEncoder backLeftEncoder = new CANEncoder(backLeft);
+  private final CANEncoder frontLeftEncoder = new CANEncoder(frontLeft);
+  private final CANEncoder backRightEncoder = new CANEncoder(backRight);
+  private final CANEncoder frontRightEncoder = new CANEncoder(frontRight);
 
   //define left and right side controller groups
   private final SpeedControllerGroup left = new SpeedControllerGroup(backLeft, frontLeft);
@@ -48,6 +53,22 @@ public class Drivetrain extends SubsystemBase {
 
   public void setMaxOutput(double maxOutput) {
     drive.setMaxOutput(maxOutput);
+  }
+
+  public double getBackLeftEncoder() {
+    return backLeftEncoder.getPosition();
+  }
+
+  public double getBackRightEncoder() {
+    return backRightEncoder.getPosition();
+  }
+
+  public double getFrontLeftEncoder() {
+    return frontLeftEncoder.getPosition();
+  }
+
+  public double getFrontRightEncoder() {
+    return frontRightEncoder.getPosition();
   }
 
   @Override
